@@ -1,0 +1,32 @@
+const letters = {
+    A:2,
+    B:0,
+    C:0,
+    D:0,
+    E:2,
+    F:0,
+    G:0,
+    H:0,
+    I:0,
+    J:0,
+    K:0,
+    L:0,
+    M:0,
+    N:0,
+    O:2,
+    P:0,
+    Q:0,
+    QU:0,
+    R:0,
+    S:0,
+    T:0,
+    TH:0,
+    U:4,
+    V:0,
+    W:0,
+    X:0,
+    Y:0,
+    Z:0
+}
+
+export default letters;
