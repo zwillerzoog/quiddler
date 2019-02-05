@@ -11,3 +11,7 @@ table {
     border-radius: 5px;
     /* color: #282c34; */
 }
+
+.highlight {
+    background-color: gray;
+}

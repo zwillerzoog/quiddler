@@ -12,7 +12,8 @@ class Card extends React.Component {
             Word: {},
             Discard: {},
             round: [1,2,3],
-            clicked: ''
+            clicked: '',
+            active: false
         }
     }
 
@@ -32,33 +33,28 @@ class Card extends React.Component {
                     i--
                 }
             }}
+
     }
 
+    highlight(e) {
+        console.log('e', e.currentTarget)
+    }
 
     //LEFT OFF HERE
     // the full Card key array needs to be deleted from Cards and added to Word
     //add clicked letter to state
-    recordLetter(r){
+    recordLetter(e){
         // e.preventDefault();
-        let letter = r.currentTarget.textContent;
+        let letter = e.currentTarget.textContent;
         let deal = this.state.Cards;
-        for (let prop in deal) {
-            if (deal[prop][0] === letter) {
+        for (let foo in deal) {
+            if (deal[foo][0] === letter) {
+                let newKey = foo;
                 let obj = {};
-                console.log('prop', deal[prop])
-                console.log('straight prop', prop)
-                obj.prop = deal[prop];
-                console.log(obj)
-                // let Word = Object.assign({}, this.state.Word);
-                // Word.prop = obj;
-                // this.setState({Word: });
-                
-                
-                delete deal[prop];
+                obj[newKey] = deal[foo];
+                this.setState({clicked: obj})
             }
         }
-        this.setState({clicked: letter})
-        //on Click, insert textContent as state.Clicked 
     }
 
     //display clicked letter in input area
@@ -67,22 +63,33 @@ class Card extends React.Component {
             console.log('clicked is empty')
             return;
         } else {
-            e.currentTarget.textContent = this.state.clicked;
-            this.setState({clicked: ''})
-            this.setState({})
+            let deal = this.state.clicked;
+            for (let foo in deal) {
+                let newKey = foo;
+                e.currentTarget.textContent = this.state.clicked[foo][0];
+                this.setState({clicked: ''})
+                this.setState({Word: this.state.clicked[foo]})
+                // delete this.state.clicked[foo]
+                delete this.state.Cards[foo]
+            }
+
         }
        console.log(this.state)
        console.log('word', this.state.Word)
     }
 
     render() {
+        let className;
+        //  = this.state.active ? 'highlight' : 'inactive';
             return (
                 <div>
                 <table id="handDisplay">
                 <tbody>               
                     <tr className="letterRow">
                         {Object.keys(this.state.Cards).map((key) => (
-                            <td onClick={(e) => this.recordLetter(e)} className="letter">{this.state.Cards[key][0]}</td>
+                            <td onClick={(e) => this.recordLetter(e)} 
+                            
+                            className={className}>{this.state.Cards[key][0]}</td>
                         ))}
                     </tr>
                     <tr className="pointRow">
@@ -94,12 +101,14 @@ class Card extends React.Component {
     
                 </table>
                 <div>
-                    <h3>Word(s):  {this.state.round.map((key) => (
+                    <h3>Word(s):  
+                    {this.state.round.map((key) => (
                      <p onClick={(e) => this.creator(e)} className="empty">A</p>))}
                 </h3>
-                    <h3>Discard:   {this.state.round.map((key) => (
-                          <p className="empty">A</p>
-                    ))}</h3>
+                    <h3>Discard:   
+                    {this.state.round.map((key) => (
+                          <p className="empty">A</p>))}
+                    </h3>
                     <p>Points:{}</p>
                     <input type="submit" value="submit"></input><br />
                 </div>
