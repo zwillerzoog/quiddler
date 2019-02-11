@@ -37,7 +37,7 @@ class Card extends React.Component {
     }
 
     highlight(e) {
-        console.log('e', e.currentTarget)
+        console.log(e.currentTarget)
     }
 
     //LEFT OFF HERE
